@@ -35,6 +35,8 @@ namespace JetiBackup
         private BindingSource fullBackupFolderBindingSource;
         private BindingSource logBackupFolderBindingSource;
         private BindingSource sdBackupDirectoryBindingSource;
+        private BindingSource modelFolderBindingSource;
+        private BindingSource logFolderBindingSource;
 
         public JetiBackupDialog()
         {
@@ -75,7 +77,7 @@ namespace JetiBackup
 
             modelBackupFolderBindingSource = new BindingSource();
             modelBackupFolderBindingSource.DataSource = Backup.Configuration;
-            txt_modelBackupFolder.DataBindings.Add("Text", modelBackupFolderBindingSource, "ModelFolder");
+            txt_modelBackupFolder.DataBindings.Add("Text", modelBackupFolderBindingSource, "BackupModelFolder");
 
             fullBackupFolderBindingSource = new BindingSource();
             fullBackupFolderBindingSource.DataSource = Backup.Configuration;
@@ -83,8 +85,15 @@ namespace JetiBackup
 
             logBackupFolderBindingSource = new BindingSource();
             logBackupFolderBindingSource.DataSource = Backup.Configuration;
-            txt_logBackupFolder.DataBindings.Add("Text", logBackupFolderBindingSource, "LogFolder");
+            txt_logBackupFolder.DataBindings.Add("Text", logBackupFolderBindingSource, "BackupLogFolder");
 
+            modelFolderBindingSource = new BindingSource();
+            modelFolderBindingSource.DataSource = Backup.Configuration;
+            txtModelFolder.DataBindings.Add("Text", modelFolderBindingSource, "SdCardModelFolder");
+
+            modelFolderBindingSource = new BindingSource();
+            modelFolderBindingSource.DataSource = Backup.Configuration;
+            txtLogFolder.DataBindings.Add("Text", modelFolderBindingSource, "SdCardLogFolder");
         }
 
         private void InitEvents()
@@ -179,6 +188,7 @@ namespace JetiBackup
 
         private void BackupOnBackupStartEvent(object sender, string sourcePath, string destinationPath, string type)
         {
+            backupRunningPictureBox.Visible = true;
             notifyIcon.BalloonTipTitle = "Jeti Backup";
             notifyIcon.BalloonTipText = string.Format("{0} backup started...", type);
             notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
@@ -188,6 +198,7 @@ namespace JetiBackup
 
         private void BackupOnBackupFinishedEvent(object sender, string sourcePath, string destinationPath, string type)
         {
+            backupRunningPictureBox.Visible = false;
             notifyIcon.BalloonTipTitle = "Jeti Backup";
             notifyIcon.BalloonTipText = string.Format("{0} backup finished...", type);
             notifyIcon.BalloonTipIcon = ToolTipIcon.Info;

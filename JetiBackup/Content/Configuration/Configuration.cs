@@ -19,131 +19,60 @@ namespace JetiBackup
 
     public class Configuration
     {
-        private string jetiDrive;
-        private string backupDirectory;
-        private string modelFolder;
-        private string fullBackupFolter;
-        private string logFolder;
-
-        
-        private BackupMode sdBackupMode;
-        private BackupFrequency sdBackupFrequency;
-        private BackupMode modelBackupMode;
-        private BackupFrequency modelBackupFrequency;
-        private BackupMode logBackupMode;
-        private BackupFrequency logBackupFrequency;
-
-        private DateTime lastFullBackup;
-        private DateTime lastModelBackup;
-        private DateTime lastLogBackup;
-
-
         public Configuration()
         {
-            jetiDrive = string.Empty;
-            backupDirectory = string.Empty;
-            modelFolder = "ModelBackup";
-            fullBackupFolter = "SDBackup";
-            logFolder = "LogBackup";
+            JetiDriveName = string.Empty;
+            BackupDirectory = string.Empty;
+            BackupModelFolder = "ModelBackup";
+            FullBackupFolder = "SDBackup";
+            BackupLogFolder = "LogBackup";
+            SdCardModelFolder = "Model";
+            SdCardLogFolder = "Log";
 
-            sdBackupMode = BackupMode.DatedDirectories;
-            sdBackupFrequency = BackupFrequency.OnConnect;
-            modelBackupMode = BackupMode.DatedDirectories;
-            modelBackupFrequency = BackupFrequency.OnConnect;
-            logBackupMode = BackupMode.DatedDirectories;
-            logBackupFrequency = BackupFrequency.OnConnect;
+            FullBackupMode = BackupMode.DatedDirectories;
+            FullBackupFrequency = BackupFrequency.OnConnect;
+            ModelBackupMode = BackupMode.DatedDirectories;
+            ModelBackupFrequency = BackupFrequency.OnConnect;
+            LogBackupMode = BackupMode.DatedDirectories;
+            LogBackupFrequency = BackupFrequency.OnConnect;
 
-            lastFullBackup = DateTime.MinValue.ToUniversalTime();
-            lastModelBackup = DateTime.MinValue.ToUniversalTime();
-            lastLogBackup = DateTime.MinValue.ToUniversalTime();
+            LastFullBackup = DateTime.MinValue.ToUniversalTime();
+            LastModelBackup = DateTime.MinValue.ToUniversalTime();
+            LastLogBackup = DateTime.MinValue.ToUniversalTime();
         }
 
-        public string JetiDriveName
-        {
-            get { return jetiDrive; }
-            set { jetiDrive = value; }
-        }
+        public string JetiDriveName { get; set; }
 
-        public string BackupDirectory
-        {
-            get { return backupDirectory; }
-            set { backupDirectory = value; }
-        }
+        public string BackupDirectory { get; set; }
 
-        public BackupMode FullBackupMode
-        {
-            get { return sdBackupMode; }
-            set { sdBackupMode = value; }
-        }
+        public BackupMode FullBackupMode { get; set; }
 
 
-        public BackupFrequency FullBackupFrequency
-        {
-            get { return sdBackupFrequency; }
-            set { sdBackupFrequency = value; }
-        }
+        public BackupFrequency FullBackupFrequency { get; set; }
 
 
-        public string ModelFolder
-        {
-            get { return modelFolder; }
-            set { modelFolder = value; }
-        }
+        public string BackupModelFolder { get; set; }
 
+        public string FullBackupFolder { get; set; }
 
-        public string FullBackupFolder
-        {
-            get { return fullBackupFolter; }
-            set { fullBackupFolter = value; }
-        }
+        public string BackupLogFolder { get; set; }
 
+        public string SdCardModelFolder { get; set; }
 
-        public string LogFolder
-        {
-            get { return logFolder; }
-            set { logFolder = value; }
-        }
+        public string SdCardLogFolder { get; set; }
 
-        public BackupMode ModelBackupMode
-        {
-            get { return modelBackupMode; }
-            set { modelBackupMode = value; }
-        }
+        public BackupMode ModelBackupMode { get; set; }
 
-        public BackupFrequency ModelBackupFrequency
-        {
-            get { return modelBackupFrequency; }
-            set { modelBackupFrequency = value; }
-        }
-        
-        public BackupMode LogBackupMode
-        {
-            get { return logBackupMode; }
-            set { logBackupMode = value; }
-        }
+        public BackupFrequency ModelBackupFrequency { get; set; }
 
-        public BackupFrequency LogBackupFrequency
-        {
-            get { return logBackupFrequency; }
-            set { logBackupFrequency = value; }
-        }
+        public BackupMode LogBackupMode { get; set; }
 
-        public DateTime LastFullBackup
-        {
-            get { return lastFullBackup; }
-            set { lastFullBackup = value; }
-        }
+        public BackupFrequency LogBackupFrequency { get; set; }
 
-        public DateTime LastModelBackup
-        {
-            get { return lastModelBackup; }
-            set { lastModelBackup = value; }
-        }
+        public DateTime LastFullBackup { get; set; }
 
-        public DateTime LastLogBackup
-        {
-            get { return lastLogBackup; }
-            set { lastLogBackup = value; }
-        }
+        public DateTime LastModelBackup { get; set; }
+
+        public DateTime LastLogBackup { get; set; }
     }
 }

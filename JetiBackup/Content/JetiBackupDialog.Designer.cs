@@ -54,6 +54,10 @@
             this.label9 = new System.Windows.Forms.Label();
             this.lbl_lastModelBackup = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtLogFolder = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtModelFolder = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.txt_logBackupFolder = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txt_sdBackupFolder = new System.Windows.Forms.TextBox();
@@ -72,16 +76,18 @@
             this.cb_logBackupFrequency = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cb_logBackupMode = new System.Windows.Forms.ComboBox();
+            this.backupRunningPictureBox = new System.Windows.Forms.PictureBox();
             this.notifyIconContextMenu.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.backupRunningPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_fullBackup
             // 
-            this.btn_fullBackup.Location = new System.Drawing.Point(330, 292);
+            this.btn_fullBackup.Location = new System.Drawing.Point(330, 349);
             this.btn_fullBackup.Name = "btn_fullBackup";
             this.btn_fullBackup.Size = new System.Drawing.Size(87, 23);
             this.btn_fullBackup.TabIndex = 2;
@@ -107,7 +113,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 191);
+            this.label3.Location = new System.Drawing.Point(21, 248);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 13);
             this.label3.TabIndex = 15;
@@ -116,7 +122,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 218);
+            this.label4.Location = new System.Drawing.Point(21, 275);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 13);
             this.label4.TabIndex = 16;
@@ -125,7 +131,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 261);
+            this.label5.Location = new System.Drawing.Point(16, 318);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(89, 13);
             this.label5.TabIndex = 17;
@@ -134,7 +140,7 @@
             // lbl_lastFullBackup
             // 
             this.lbl_lastFullBackup.AutoSize = true;
-            this.lbl_lastFullBackup.Location = new System.Drawing.Point(124, 261);
+            this.lbl_lastFullBackup.Location = new System.Drawing.Point(124, 318);
             this.lbl_lastFullBackup.Name = "lbl_lastFullBackup";
             this.lbl_lastFullBackup.Size = new System.Drawing.Size(36, 13);
             this.lbl_lastFullBackup.TabIndex = 18;
@@ -192,7 +198,7 @@
             // 
             this.groupBox1.Controls.Add(this.cb_sdBackupMode);
             this.groupBox1.Controls.Add(this.cb_sdBackupFrequency);
-            this.groupBox1.Location = new System.Drawing.Point(15, 168);
+            this.groupBox1.Location = new System.Drawing.Point(15, 225);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(189, 83);
             this.groupBox1.TabIndex = 19;
@@ -205,7 +211,7 @@
             this.groupBox2.Controls.Add(this.cb_modelBackupFrequency);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.cb_modelBackupMode);
-            this.groupBox2.Location = new System.Drawing.Point(210, 168);
+            this.groupBox2.Location = new System.Drawing.Point(210, 225);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(196, 83);
             this.groupBox2.TabIndex = 20;
@@ -248,7 +254,7 @@
             // 
             // btn_modelBackup
             // 
-            this.btn_modelBackup.Location = new System.Drawing.Point(423, 292);
+            this.btn_modelBackup.Location = new System.Drawing.Point(423, 349);
             this.btn_modelBackup.Name = "btn_modelBackup";
             this.btn_modelBackup.Size = new System.Drawing.Size(87, 23);
             this.btn_modelBackup.TabIndex = 24;
@@ -258,7 +264,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(16, 283);
+            this.label9.Location = new System.Drawing.Point(16, 340);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(102, 13);
             this.label9.TabIndex = 25;
@@ -267,7 +273,7 @@
             // lbl_lastModelBackup
             // 
             this.lbl_lastModelBackup.AutoSize = true;
-            this.lbl_lastModelBackup.Location = new System.Drawing.Point(124, 283);
+            this.lbl_lastModelBackup.Location = new System.Drawing.Point(124, 340);
             this.lbl_lastModelBackup.Name = "lbl_lastModelBackup";
             this.lbl_lastModelBackup.Size = new System.Drawing.Size(36, 13);
             this.lbl_lastModelBackup.TabIndex = 26;
@@ -275,6 +281,10 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.txtLogFolder);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.txtModelFolder);
+            this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.txt_logBackupFolder);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.txt_sdBackupFolder);
@@ -289,9 +299,41 @@
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Location = new System.Drawing.Point(15, 13);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(593, 149);
+            this.groupBox3.Size = new System.Drawing.Size(593, 206);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
+            // 
+            // txtLogFolder
+            // 
+            this.txtLogFolder.Location = new System.Drawing.Point(123, 170);
+            this.txtLogFolder.Name = "txtLogFolder";
+            this.txtLogFolder.Size = new System.Drawing.Size(426, 20);
+            this.txtLogFolder.TabIndex = 40;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 173);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(60, 13);
+            this.label14.TabIndex = 39;
+            this.label14.Text = "Log Folder:";
+            // 
+            // txtModelFolder
+            // 
+            this.txtModelFolder.Location = new System.Drawing.Point(123, 144);
+            this.txtModelFolder.Name = "txtModelFolder";
+            this.txtModelFolder.Size = new System.Drawing.Size(426, 20);
+            this.txtModelFolder.TabIndex = 38;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 147);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(71, 13);
+            this.label15.TabIndex = 37;
+            this.label15.Text = "Model Folder:";
             // 
             // txt_logBackupFolder
             // 
@@ -321,9 +363,9 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(6, 95);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(97, 13);
+            this.label11.Size = new System.Drawing.Size(98, 13);
             this.label11.TabIndex = 33;
-            this.label11.Text = "SD Backup Folder:";
+            this.label11.Text = "Full Backup Folder:";
             // 
             // txt_modelBackupFolder
             // 
@@ -387,13 +429,13 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.Size = new System.Drawing.Size(113, 13);
             this.label1.TabIndex = 23;
-            this.label1.Text = "Jeti Drive:";
+            this.label1.Text = "Drivename to Backup:";
             // 
             // btn_logBackup
             // 
-            this.btn_logBackup.Location = new System.Drawing.Point(516, 292);
+            this.btn_logBackup.Location = new System.Drawing.Point(516, 349);
             this.btn_logBackup.Name = "btn_logBackup";
             this.btn_logBackup.Size = new System.Drawing.Size(87, 23);
             this.btn_logBackup.TabIndex = 29;
@@ -406,7 +448,7 @@
             this.groupBox4.Controls.Add(this.cb_logBackupFrequency);
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Controls.Add(this.cb_logBackupMode);
-            this.groupBox4.Location = new System.Drawing.Point(412, 168);
+            this.groupBox4.Location = new System.Drawing.Point(412, 225);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(196, 83);
             this.groupBox4.TabIndex = 30;
@@ -447,11 +489,23 @@
             this.cb_logBackupMode.Size = new System.Drawing.Size(108, 21);
             this.cb_logBackupMode.TabIndex = 17;
             // 
+            // backupRunningPictureBox
+            // 
+            this.backupRunningPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("backupRunningPictureBox.Image")));
+            this.backupRunningPictureBox.Location = new System.Drawing.Point(265, 314);
+            this.backupRunningPictureBox.Name = "backupRunningPictureBox";
+            this.backupRunningPictureBox.Size = new System.Drawing.Size(59, 59);
+            this.backupRunningPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.backupRunningPictureBox.TabIndex = 31;
+            this.backupRunningPictureBox.TabStop = false;
+            this.backupRunningPictureBox.Visible = false;
+            // 
             // JetiBackupDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(615, 327);
+            this.ClientSize = new System.Drawing.Size(615, 381);
+            this.Controls.Add(this.backupRunningPictureBox);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.btn_logBackup);
             this.Controls.Add(this.groupBox3);
@@ -479,6 +533,7 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.backupRunningPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -527,6 +582,11 @@
         private System.Windows.Forms.ComboBox cb_logBackupFrequency;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox cb_logBackupMode;
+        private System.Windows.Forms.TextBox txtLogFolder;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtModelFolder;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.PictureBox backupRunningPictureBox;
     }
 }
 

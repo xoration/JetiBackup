@@ -125,6 +125,9 @@
   <ItemGroup>
     <Content Include="Content\JB.ico" />
     <Content Include="JB.ico" />
+    <None Include="loading.gif" />
+    <None Include="Resources\Image1.bmp" />
+    <None Include="Resources\Loading.bmp" />
     <None Include="COPYING" />
   </ItemGroup>
   <ItemGroup>

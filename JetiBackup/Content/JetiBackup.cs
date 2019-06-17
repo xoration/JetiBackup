@@ -116,14 +116,14 @@ namespace JetiBackup
                     break;
                 case BackupMode.DatedDirectories:
                     if (sourcePath != null)
-                        InitDirectoryBackup(sourcePath, backupPath, "Full", false);
+                        InitDirectoryBackup(sourcePath, backupPath, "Full", "Full", false);
 
                     Configuration.LastFullBackup = DateTime.Now;
                     SaveConfiguration();
                     break;
                 case BackupMode.Differential:
                     if (!string.IsNullOrEmpty(sourcePath))
-                        InitDirectoryBackup(sourcePath, backupPath, "Full", true);
+                        InitDirectoryBackup(sourcePath, backupPath, "Full", "Full", true);
 
                     Configuration.LastFullBackup = DateTime.Now;
                     SaveConfiguration();
@@ -135,29 +135,29 @@ namespace JetiBackup
 
         public void ModelBackup()
         {
-            string backupPath = Path.Combine(Configuration.BackupDirectory, Configuration.ModelFolder);
+            string backupPath = Path.Combine(Configuration.BackupDirectory, Configuration.BackupModelFolder);
             string sourcePath = GetSdPath();
 
             if (sourcePath == null)
                 return;
 
-            sourcePath = Path.Combine(sourcePath, "Model");
+            sourcePath = Path.Combine(sourcePath, Configuration.SdCardModelFolder);
 
             switch (Configuration.ModelBackupMode) {
                 case BackupMode.Git:
-                    StartGitBackup(Path.Combine(sourcePath, "Model"), backupPath, "Model");
+                    StartGitBackup(sourcePath, backupPath, "Model");
 
                     break;
                 case BackupMode.DatedDirectories:
                     if (!string.IsNullOrEmpty(sourcePath))
-                        InitDirectoryBackup(sourcePath, backupPath, "Model", false);
+                        InitDirectoryBackup(sourcePath, backupPath, Configuration.BackupModelFolder, "Model", false);
 
                     Configuration.LastModelBackup = DateTime.Now;
                     SaveConfiguration();
                     break;
                 case BackupMode.Differential:
                     if (!string.IsNullOrEmpty(sourcePath))
-                        InitDirectoryBackup(sourcePath, backupPath, "Model", true);
+                        InitDirectoryBackup(sourcePath, backupPath, Configuration.BackupModelFolder, "Model", true);
 
                     Configuration.LastModelBackup = DateTime.Now;
                     SaveConfiguration();
@@ -183,7 +183,7 @@ namespace JetiBackup
                 newSync = true;
             }
             
-            if (InitGitBackup(sourcePath, backupPath, backupType) || newSync)
+            if (InitGitBackup(sourcePath, backupPath) || newSync)
             {
                 using (var repo = new Repository(backupPath))
                 {
@@ -211,8 +211,8 @@ namespace JetiBackup
             if (sourcePath == null)
                 return;
 
-            sourcePath = Path.Combine(sourcePath, "Log");
-            string backupPath = Path.Combine(Configuration.BackupDirectory, Configuration.LogFolder);
+            sourcePath = Path.Combine(sourcePath, Configuration.SdCardLogFolder);
+            string backupPath = Configuration.BackupDirectory;
 
             if (string.IsNullOrEmpty(sourcePath))
             {
@@ -238,13 +238,13 @@ namespace JetiBackup
 
                     break;
                 case BackupMode.DatedDirectories:
-                    InitDirectoryBackup(sourcePath, backupPath, "Log", false);
+                    InitDirectoryBackup(sourcePath, backupPath, Configuration.BackupLogFolder,"Log", false);
 
                     Configuration.LastLogBackup = DateTime.Now;
                     SaveConfiguration();
                     break;
                 case BackupMode.Differential:
-                    InitDirectoryBackup(sourcePath, backupPath, "Log", true);
+                    InitDirectoryBackup(sourcePath, backupPath, Configuration.BackupLogFolder, "Log", true);
 
                     Configuration.LastLogBackup = DateTime.Now;
                     SaveConfiguration();
@@ -271,21 +271,21 @@ namespace JetiBackup
             }
         }
 
-        private void InitDirectoryBackup(string sourcePath, string destinationPath, string type, bool inkrementalCopy)
+        private void InitDirectoryBackup(string sourcePath, string destinationPath, string destinationFolder, string backupType, bool inkrementalCopy)
         {
             if (!Directory.Exists(sourcePath))
                 return;
 
             if (inkrementalCopy) {
-                destinationPath = Path.Combine(destinationPath, string.Format("{0}", type));
+                destinationPath = Path.Combine(destinationPath, destinationFolder);
             }
             else {
                 destinationPath = Path.Combine(destinationPath,
-                    string.Format("{0}-{1:yyyy-MM-dd_hh-mm-ss}", type, DateTime.Now));
+                    string.Format("{0}-{1:yyyy-MM-dd_hh-mm-ss}", destinationFolder, DateTime.Now));
             }
 
             if (BackupStartEvent != null)
-                BackupStartEvent(this, sourcePath, destinationPath, type);
+                BackupStartEvent(this, sourcePath, destinationPath, backupType);
 
             if (log.IsDebugEnabled)
                 log.Info(string.Format("Start backup from {0} to {1}", sourcePath, destinationPath));
@@ -295,13 +295,13 @@ namespace JetiBackup
             CopyRecursive(new DirectoryInfo(sourcePath), new DirectoryInfo(destinationPath), inkrementalCopy);
 
             if (BackupFinishedEvent != null)
-                BackupFinishedEvent(this, sourcePath, destinationPath, type);
+                BackupFinishedEvent(this, sourcePath, destinationPath, backupType);
 
             if (log.IsDebugEnabled)
                 log.Info(string.Format("Finished backup from {0} to {1}", sourcePath, destinationPath));
         }
 
-        private bool InitGitBackup(string sourcePath, string destinationPath, string backupType)
+        private bool InitGitBackup(string sourcePath, string destinationPath)
         {
             if (!Directory.Exists(sourcePath))
                 return false;
@@ -360,11 +360,9 @@ namespace JetiBackup
 
         private void CopyRecursive(DirectoryInfo sourceDirectory, DirectoryInfo destinationDirectory, bool inkremental)
         {
-            bool overwrite = false;
-
             foreach (FileInfo sourceFile in sourceDirectory.GetFiles()) {
                 FileInfo destinationFile = new FileInfo(Path.Combine(destinationDirectory.FullName, sourceFile.Name));
-                overwrite = false;
+                bool overwrite = false;
 
                 if (inkremental) {
                     if (destinationFile.Exists) {
